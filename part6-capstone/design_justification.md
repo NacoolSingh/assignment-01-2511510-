@@ -1,0 +1,11 @@
+## Storage Systems
+
+In this architecture, different storage systems are used to meet the four goals of the hospital system efficiently. For predicting patient readmission risk, a Data Warehouse is used because it stores cleaned, structured historical data that is ideal for machine learning models. For allowing doctors to query patient history in plain English, a Vector Database is used since it enables semantic search using embeddings, making it suitable for natural language queries. To generate monthly reports for hospital management, the Data Warehouse is again used as it supports fast analytical queries and aggregations. For streaming and storing real-time ICU vitals, a Data Lake is used because it can handle large volumes of raw, unstructured, and streaming data efficiently.
+
+## OLTP vs OLAP Boundary
+
+The OLTP system in this design consists of the initial data sources such as patient records (EHR), ICU devices, lab reports, and doctor notes, where real-time transactional data is generated and updated frequently. The boundary between OLTP and OLAP occurs at the Data Ingestion layer. Once the data passes through ingestion (ETL/streaming), it is stored in the Data Lake and later transformed into the Data Warehouse. The Data Warehouse represents the OLAP system, where data is structured and optimized for analytical processing, reporting, and machine learning tasks. Thus, OLTP handles data generation, while OLAP handles data analysis and insights.
+
+## Trade-offs
+
+One major trade-off in this architecture is between data freshness and system complexity. Using both a Data Lake and Data Warehouse increases system complexity due to additional data processing, storage layers, and maintenance requirements. However, this design improves scalability and supports different types of workloads efficiently. To mitigate this trade-off, automated ETL pipelines and data orchestration tools can be used to ensure smooth data flow and reduce manual effort. Additionally, near real-time data processing techniques can be implemented to minimize latency and ensure that analytical systems receive updated data quickly without significantly increasing complexity.
