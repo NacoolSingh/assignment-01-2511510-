@@ -24,8 +24,7 @@ GROUP BY o.order_id
 HAVING SUM(oi.quantity * oi.price) > 10000
 ORDER BY total_value DESC;
 -- Q5:
-SELECT c.customer_id, c.customer_name
-FROM customers c
-JOIN orders o ON c.customer_id = o.customer_id
-GROUP BY c.customer_id, c.customer_name
-HAVING COUNT(o.order_id) > 1;
+SELECT p.product_id, p.product_name
+FROM products p
+LEFT JOIN order_items oi ON p.product_id = oi.product_id
+WHERE oi.product_id IS NULL;
